@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="row my-5">
+    <div class="col-md-5">
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible show" role="alert">
+            <p>{{message}}</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+
+        <div class="card border-secondary mb-2 bg-black" style="max-width: 20rem;">
+            <h4 class="text-center my-1">Registrar Mascota</h4><hr>
+            <form action="/add_contact" method="post" class="mt-2 p-2 my-2">
+                <div class="form-group">
+                    <label for="">Nombre: </label>
+                    <input type="text" name="nombre" placeholder="Fullname" class="input-group">
+                </div>
+                <div class="form-group">
+                    <label for="">Fecha de Nacimiento: </label>
+                    <input type="date" name="fechaNac" placeholder="fecha de nacimiento" class="input-group ">
+                </div>
+                <div class="form-group">
+                    <label for="">Raza</label>
+                    <input type="text" name="raza" placeholder="raza" class="input-group">
+                </div>
+                <div class="form-group">
+                    <label for="">Nombre del dueño</label>
+                    <input type="text" name="nombreDueno" placeholder="nombre del dueño" class="input-group">
+                </div>
+                <div class="form-group">
+                    <label for="">Dni del dueño</label>
+                    <input type="text" name="dniDueno" placeholder="dni" class="input-group">
+                </div>
+                
+                <div class="form-group">
+                    <button class="btn btn-outline-info my-2" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="col-md-7">
+        <table class="table table-striped table-bordered bg-black">
+            <thead>
+                <tr>
+                    <td>nombre</td>
+                    <td>fecha de nacimiento</td>
+                    <td>raza</td>
+                    <td>nombre de dueño</td>
+                    <td>dni de dueño</td>
+                    <td>Operation</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.1 }} </td>
+                    <td>{{ contact.2 }} </td>
+                    <td>{{ contact.3 }} </td>
+                    <td>{{ contact.4 }} </td>
+                    <td>{{ contact.5 }} </td>
+                    
+                    <td>
+                        <a href="/edit/{{contact.0}}" class="btn btn-outline-info">Edit</a>
+                        <a href="/delete/{{contact.0}} " class="btn btn-outline-danger btn-delete">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+{% endblock %}
